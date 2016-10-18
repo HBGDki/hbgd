@@ -24,17 +24,11 @@ panel.igfet(gagedays, var = "hccm", p = c(1, 5, 25, 50), color = "green",
   alpha = 0.15, center = FALSE, labels = TRUE, x_trans = identity,
   y_trans = identity)
 
-geom_who(obj, x, x_var = "agedays", y_var = "htcm", sex = "Female",
-  p = c(1, 5, 25, 50), color = NULL, alpha = 0.15, center = FALSE,
-  labels = TRUE, x_trans = identity, y_trans = identity)
+geom_who(...)
 
-geom_igb(obj, gagebrth, var = "lencm", sex = "Female", p = c(1, 5, 25,
-  50), color = NULL, alpha = 0.15, center = FALSE, labels = TRUE,
-  x_trans = identity, y_trans = identity)
+geom_igb(..., var = "lencm")
 
-geom_igfet(obj, gagedays, var = "hccm", p = c(1, 5, 25, 50),
-  color = "green", alpha = 0.15, center = FALSE, labels = TRUE,
-  x_trans = identity, y_trans = identity)
+geom_igfet(..., var = "hccm", color = "green")
 
 ly_who(fig, x, x_var = "agedays", y_var = "htcm", sex = "Female",
   p = c(1, 5, 25, 50), color = NULL, alpha = 0.15, center = FALSE,
@@ -50,7 +44,7 @@ ly_igfet(fig, gagedays, var = "hccm", p = c(1, 5, 25, 50),
   x_trans = identity, y_trans = identity)
 }
 \arguments{
-\item{x}{value or vector of values that correspond to a measure defined by \code{x_var}}
+\item{x, x_seq}{value or vector of values that correspond to a measure defined by \code{x_var}. \code{x_seq} is used with geom_*}
 
 \item{x_var}{x variable name (typically "agedays")}
 
@@ -60,7 +54,7 @@ ly_igfet(fig, gagedays, var = "hccm", p = c(1, 5, 25, 50),
 
 \item{p}{centiles at which to draw the growth standard band polygons (only need to specify on one side of the median)}
 
-\item{color}{optional color to use for bands (will use \code{sex} to determine if not specified)}
+\item{color, shade}{optional color to use for bands (will use \code{sex} to determine if not specified). \code{shade} is used with geom_*}
 
 \item{alpha}{transparency of the bands}
 
@@ -78,11 +72,11 @@ ly_igfet(fig, gagedays, var = "hccm", p = c(1, 5, 25, 50),
 
 \item{gagedays}{gestational age in days (for igfet plots)}
 
-\item{obj}{ggplot2 object to add growth standard to}
-
 \item{fig}{rbokeh figure to add growth standard to}
 
 \item{x_units}{units of age x-axis (days, months, or years)}
+
+\item{obj}{ggplot2 object to add growth standard to}
 }
 \description{
 Utility functions for adding growth standard bands to rbokeh/lattice/ggplot2 plots
@@ -147,8 +141,8 @@ xyplot(birthlen ~ jitter(gagebrth), data = subset(cppsubj, sex == "Male"),
 #### ggplot2
 
 library(ggplot2)
-p <- ggplot(data = subset(cpp, subjid == 8), aes(x = agedays, y = htcm))
-geom_who(p, x = seq(0, 2600, by = 10)) +
+p <- ggplot(data = subset(cpp, subjid == 8), aes(x = agedays, y = htcm)) +
+  geom_who(x_seq = seq(0, 2600, by = 10), y = "htcm") +
   geom_point()
 }
 

@@ -10,14 +10,13 @@
 #' @param gagedays gestational age in days (for igfet plots)
 #' @param sex "Male" or "Female"
 #' @param p centiles at which to draw the growth standard band polygons (only need to specify on one side of the median)
-#' @param color optional color to use for bands (will use \code{sex} to determine if not specified)
+#' @param color,shade optional color to use for bands (will use \code{sex} to determine if not specified). \code{shade} is used with geom_*
 #' @param alpha transparency of the bands
 #' @param center should the bands be centered around the median?
 #' @param labels should the centiles be labeled? (not implemented)
 #' @param x_trans transformation function to be applied to x-axis
 #' @param y_trans transformation function to be applied to y-axis
 #' @param x_units units of age x-axis (days, months, or years)
-#' @importFrom ggplot2 geom_polygon geom_path aes
 #' @importFrom lattice panel.polygon panel.lines
 #' @examples
 #' \dontrun{
@@ -79,8 +78,8 @@
 #' #### ggplot2
 #'
 #' library(ggplot2)
-#' p <- ggplot(data = subset(cpp, subjid == 8), aes(x = agedays, y = htcm))
-#' geom_who(p, x = seq(0, 2600, by = 10)) +
+#' p <- ggplot(data = subset(cpp, subjid == 8), aes(x = agedays, y = htcm)) +
+#'   geom_who(x_seq = seq(0, 2600, by = 10), y = "htcm") +
 #'   geom_point()
 #' @rdname plot_growth
 #' @export
