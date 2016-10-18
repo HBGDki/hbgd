@@ -433,17 +433,12 @@ test_that("ggplot2", {
     )
   }
 
-  p <- ggplot(data = subset(cpp, subjid == 8), aes(x = agedays, y = htcm))
-  who_p <- geom_who(p, x = seq(0, 2600, by = 10)) + geom_point()
+  who_p <- ggplot(data = subset(cpp, subjid == 8), aes(x = agedays, y = htcm)) +
+    geom_who(x_seq = seq(0, 2600, by = 10), y_var = "htcm") +
+    geom_point()
 
-  expect_layer_type(who_p, 1, "GeomPolygon")
-  expect_layer_type(who_p, 2, "GeomPath")
-  expect_layer_type(who_p, 3, "GeomPolygon")
-  expect_layer_type(who_p, 4, "GeomPath")
-  expect_layer_type(who_p, 5, "GeomPolygon")
-  expect_layer_type(who_p, 6, "GeomPath")
-  expect_layer_type(who_p, 7, "GeomPath")
-  expect_layer_type(who_p, 8, "GeomPoint")
+  expect_layer_type(who_p, 1, "GeomGrowthStandard")
+  expect_layer_type(who_p, 2, "GeomPoint")
 
   expect_warning_plot(who_p, "Removed 1 rows containing missing values")
 
