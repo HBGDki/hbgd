@@ -79,7 +79,7 @@
 #'
 #' library(ggplot2)
 #' p <- ggplot(data = subset(cpp, subjid == 8), aes(x = agedays, y = htcm)) +
-#'   geom_who(x_seq = seq(0, 2600, by = 10), y = "htcm") +
+#'   geom_who(x_seq = seq(0, 2600, by = 10), y_var = "htcm") +
 #'   geom_point()
 #' @rdname plot_growth
 #' @export
