@@ -78,7 +78,7 @@ ly_igfet(fig, gagedays, var = "hccm", p = c(1, 5, 25, 50),
 
 \item{gagedays}{gestational age in days (for igfet plots)}
 
-\item{data, mapping}{supplied direclty to \code{ggplot2::layer}}
+\item{data, mapping, inherit.aes}{supplied direclty to \code{ggplot2::layer}}
 
 \item{standard}{standard name to use.  Either \code{"who"}, \code{"igb"}, or \code{"igfet"}}
 

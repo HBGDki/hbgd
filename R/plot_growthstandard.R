@@ -16,7 +16,7 @@
 #' @param x_trans transformation function to be applied to x-axis
 #' @param y_trans transformation function to be applied to y-axis
 #' @param x_units units of age x-axis (days, months, or years)
-#' @param data,mapping supplied direclty to \code{ggplot2::layer}
+#' @param data,mapping,inherit.aes supplied direclty to \code{ggplot2::layer}
 #' @param standard standard name to use.  Either \code{"who"}, \code{"igb"}, or \code{"igfet"}
 #' @importFrom lattice panel.polygon panel.lines
 #' @examples
