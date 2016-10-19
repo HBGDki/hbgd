@@ -1,9 +1,21 @@
 
 
+(function(){
+  # init
+  # only cache per day
+  if (file.exists("test_cache")) {
+    creation_date <- format.Date(file.info("test_cache")$ctime, "%Y-%m-%d")
+    if (!identical(creation_date, Sys.Date())) {
+      unlink("test_cache", recursive = TRUE)
+    }
+  }
+
+  dir.create("test_cache", recursive = TRUE, showWarnings = FALSE)
+})()
+
 get_cached_data <- function(name, fn) {
   file_name <- file.path("test_cache", paste(name, ".Rda", sep = ""))
   if (!file.exists(file_name)) {
-    dir.create("test_cache", showWarnings = FALSE)
     result <- fn()
     save(result, file = file_name)
   }
@@ -11,6 +23,11 @@ get_cached_data <- function(name, fn) {
   load(file_name, envir = env)
   get("result", env)
 }
+
+# delete_cached_data <- function(name) {
+#   unlink(file.path("test_cache", paste(name, ".Rda", sep = "")))
+# }
+
 
 facefit_fn <- function() {
   get_cached_data("facefit_obj", function() {
