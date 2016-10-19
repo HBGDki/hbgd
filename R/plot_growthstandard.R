@@ -1,7 +1,6 @@
 #' Utility functions for adding growth standard bands to rbokeh/lattice/ggplot2 plots
 #'
 #' @param fig rbokeh figure to add growth standard to
-#' @param obj ggplot2 object to add growth standard to
 #' @param x,x_seq value or vector of values that correspond to a measure defined by \code{x_var}. \code{x_seq} is used with geom_*
 #' @param x_var x variable name (typically "agedays")
 #' @param y_var y variable name (typically "htcm" or "wtkg")
@@ -17,6 +16,8 @@
 #' @param x_trans transformation function to be applied to x-axis
 #' @param y_trans transformation function to be applied to y-axis
 #' @param x_units units of age x-axis (days, months, or years)
+#' @param data,mapping supplied direclty to \code{ggplot2::layer}
+#' @param standard standard name to use.  Either \code{"who"}, \code{"igb"}, or \code{"igfet"}
 #' @importFrom lattice panel.polygon panel.lines
 #' @examples
 #' \dontrun{
@@ -147,6 +148,8 @@ panel_growthstandard <- function(x, x_var = "agedays", y_var = "htcm", sex = "Fe
 
 
 
+#' @rdname plot_growth
+#' @export
 geom_growthstandard <- function(
   mapping = NULL,
   data = NULL,
@@ -161,7 +164,6 @@ geom_growthstandard <- function(
   x_trans = identity,
   y_trans = identity,
   standard = "who",
-  show.legend = NA,
   inherit.aes = TRUE
 ) {
 
@@ -172,13 +174,13 @@ geom_growthstandard <- function(
     y_var <- deparse(mapping$y)
   }
 
-  layer(
+  ggplot2::layer(
     data = data,
     mapping = mapping,
     stat = "identity",
     geom = GeomGrowthStandard,
     position = "identity",
-    show.legend = show.legend,
+    show.legend = FALSE,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = FALSE,
@@ -277,6 +279,7 @@ GeomGrowthStandard <- ggplot2::ggproto(
 
 
 #' @rdname plot_growth
+#' @param ... items supplied direclty to \code{geom_growthstandard}
 #' @export
 geom_who <- function(...) {
     geom_growthstandard(..., standard = "who")
