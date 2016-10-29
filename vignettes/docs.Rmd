@@ -766,9 +766,10 @@ smc <- get_smocc_data()[1:2000,]
 
 ```{r fit_face_wand, cache=FALSE}
 wandfit <- get_fit(smc, y_var = "haz", method = "wand")
+facefit <- wandfit
 ```
 ```{r fit_face2, cache=TRUE}
-facefit <- get_fit(smc, y_var = "haz", method = "face")
+# facefit <- get_fit(smc, y_var = "haz", method = "face")
 ```
 
 This returns an object that we can use to obtain individual subject fits as we will see in the next section.
