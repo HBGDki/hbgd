@@ -18,6 +18,8 @@ r_github_packages:
 after_success:
   - Rscript -e 'options(repos = c(deltarho = "http://packages.deltarho.org", getOption("repos"))); install.packages(c("brokenstick", "face")); print(packageVersion("brokenstick")); print(packageVersion("face"))'
   - Rscript -e "packagedocs::deploy_travis()"
+  - Rscript -e "packagedocs::deploy_travis(valid_branches = 'dev', push_branch = 'gh-pages-dev')"
+  - Rscript -e "packagedocs::deploy_travis(valid_branches = 'travis', push_branch = 'gh-pages-travis')"
   - rm -r ./tests/testthat/test_cache
   - Rscript -e 'covr::codecov()'
   - Rscript -e "travisDrat::deploy_drat()"
